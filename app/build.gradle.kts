@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.vegventure"
+    namespace = "com.example.greenscene"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.vegventure"
+        applicationId = "com.example.greenscene"
         minSdk = 29
         targetSdk = 34
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.example.vegventure
+package com.example.greenscene
 
 import org.junit.Test
 
