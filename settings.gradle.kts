@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "VegVenture"
+rootProject.name = "GreenScene"
 include(":app")

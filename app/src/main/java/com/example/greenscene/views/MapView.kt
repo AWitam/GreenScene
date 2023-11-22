@@ -1,4 +1,4 @@
-package com.example.vegventure.ui.views
+package com.example.greenscene.views
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable

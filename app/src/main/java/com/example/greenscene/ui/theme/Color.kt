@@ -1,4 +1,4 @@
-package com.example.vegventure.ui.theme
+package com.example.greenscene.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
