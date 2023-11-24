@@ -20,24 +20,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             GreenSceneTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MapView()
-                }
+                GreenSceneApp()
             }
         }
     }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-
-    GreenSceneTheme {
-        MapView()
-    }
-
 }
