@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">VegVenture</string>
+    <string name="map_route">Map</string>
+    <string name="profile_route">Profile</string>
 </resources>
