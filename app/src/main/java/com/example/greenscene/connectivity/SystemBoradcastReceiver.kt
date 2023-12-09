@@ -1,4 +1,4 @@
-package com.example.greenscene.utils
+package com.example.greenscene.connectivity
 
 import android.content.BroadcastReceiver
 import android.content.Context
