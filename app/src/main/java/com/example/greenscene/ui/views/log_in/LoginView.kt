@@ -1,9 +1,9 @@
-package com.example.greenscene.ui.views
+package com.example.greenscene.ui.views.log_in
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun ProfileView() {
-    Text(text = "Profile")
+fun LogInView() {
+    Text(text = "Log In")
 }
