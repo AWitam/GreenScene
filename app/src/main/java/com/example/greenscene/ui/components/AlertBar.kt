@@ -58,7 +58,7 @@ fun AlertBar(context: Context) {
                     .background(colors.error)
                     .padding(8.dp),
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colors.onError
+                color = colors.onError
             )
         }
     }
