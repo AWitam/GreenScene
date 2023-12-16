@@ -29,4 +29,15 @@
     <string name="password_error">Your password should have at least six digits and include one digit, one lower case letter and one upper case letter.</string>
     <string name="password_match_error">Passwords do not match.</string>
 
+
+    <!-- ProfileScreen -->
+    <string name="profile">Profile</string>
+    <string name="sign_out">Sign out</string>
+    <string name="delete_my_account">Delete my account</string>
+
+    <!-- Dialogs -->
+    <string name="sign_out_title">Sign out?</string>
+    <string name="sign_out_description">You will have to sign in again to see your tasks.</string>
+
+
 </resources>

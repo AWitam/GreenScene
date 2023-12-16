@@ -50,7 +50,7 @@ fun ProfileViewContent(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BasicToolbar(AppText.settings)
+        BasicToolbar(AppText.profile)
 
         Spacer(modifier = Modifier.spacer())
 
