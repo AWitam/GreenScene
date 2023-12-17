@@ -26,6 +26,7 @@ import com.example.greenscene.ui.screens.MapView
 import com.example.greenscene.ui.screens.log_in.LogInScreen
 import com.example.greenscene.ui.screens.profile.ProfileScreen
 import com.example.greenscene.ui.screens.sign_up.SignUpScreen
+import com.example.greenscene.ui.screens.splash_screen.SplashScreen
 import kotlinx.coroutines.CoroutineScope
 
 
@@ -44,7 +45,7 @@ fun GreenSceneApp() {
     ) { innerPadding ->
         NavHost(
             navController = appState.navController,
-            startDestination = MAP_SCREEN,
+            startDestination = SPLASH_SCREEN,
             modifier = Modifier.padding(innerPadding)
 
         ) {
@@ -75,7 +76,12 @@ fun rememberAppState(
 fun NavGraphBuilder.greenSceneGraph(
     appState: GreenSceneAppState,
 ) {
-    // todo: Splash screen
+
+    composable(SPLASH_SCREEN) {
+        SplashScreen(
+          openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) }
+        )
+    }
 
     composable(route = MAP_SCREEN) {
         MapView()
