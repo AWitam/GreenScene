@@ -1,4 +1,4 @@
-package com.example.greenscene.connectivity
+package com.example.greenscene.common.connectivity
 
 import android.content.Context
 import android.provider.Settings

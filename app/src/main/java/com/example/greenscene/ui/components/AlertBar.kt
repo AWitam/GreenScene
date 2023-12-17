@@ -20,10 +20,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.greenscene.connectivity.ConnectivityObserver
-import com.example.greenscene.connectivity.NetworkConnectivityObserver
-import com.example.greenscene.connectivity.SystemBroadcastReceiver
-import com.example.greenscene.connectivity.isAirplaneModeOn
+import com.example.greenscene.common.connectivity.ConnectivityObserver
+import com.example.greenscene.common.connectivity.NetworkConnectivityObserver
+import com.example.greenscene.common.connectivity.SystemBroadcastReceiver
+import com.example.greenscene.common.connectivity.isAirplaneModeOn
 
 @Composable
 fun AlertBar(context: Context) {
