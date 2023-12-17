@@ -84,9 +84,16 @@ fun rememberAppState(
             bottomBarState.value = true
     }
 
-     val appState = remember(scaffoldState, bottomBarState,  navController, resources, coroutineScope) {
-        GreenSceneAppState(scaffoldState, navController, bottomBarState, resources, coroutineScope)
-    }
+    val appState =
+        remember(scaffoldState, bottomBarState, navController, resources, coroutineScope) {
+            GreenSceneAppState(
+                scaffoldState,
+                navController,
+                bottomBarState,
+                resources,
+                coroutineScope
+            )
+        }
 
     return appState
 }
