@@ -22,7 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.greenscene.ui.components.AlertBar
 import com.example.greenscene.ui.components.BottomBar
-import com.example.greenscene.ui.screens.MapView
+import com.example.greenscene.ui.screens.MapScreen
 import com.example.greenscene.ui.screens.log_in.LogInScreen
 import com.example.greenscene.ui.screens.profile.ProfileScreen
 import com.example.greenscene.ui.screens.sign_up.SignUpScreen
@@ -84,7 +84,7 @@ fun NavGraphBuilder.greenSceneGraph(
     }
 
     composable(route = MAP_SCREEN) {
-        MapView()
+        MapScreen()
     }
 
     composable(PROFILE_SCREEN) {
