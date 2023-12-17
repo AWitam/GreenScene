@@ -1,4 +1,4 @@
-package com.example.greenscene.ui.views.sign_up
+package com.example.greenscene.ui.screens.sign_up
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,7 +25,7 @@ import com.example.greenscene.R.string as AppText
 
 
 @Composable
-fun SignUpView(
+fun SignUpScreen(
     openAndPopUp: (String, String) -> Unit,
     viewModel: SignUpViewModel = hiltViewModel()
 ) {

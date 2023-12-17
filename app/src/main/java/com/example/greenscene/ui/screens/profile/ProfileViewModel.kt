@@ -1,17 +1,20 @@
-package com.example.greenscene.ui.views.profile
+package com.example.greenscene.ui.screens.profile
 
 import com.example.greenscene.LOG_IN_SCREEN
 import com.example.greenscene.SIGN_UP_SCREEN
 import com.example.greenscene.model.service.AccountService
-import com.example.greenscene.ui.views.GreenSceneViewModel
+import com.example.greenscene.ui.screens.GreenSceneViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val accountService: AccountService
 ) : GreenSceneViewModel() {
-    val uiState = ProfileUiState()
+    val uiState = accountService.currentUser.map {
+        ProfileUiState(it.isAnonymous)
+    }
 
     fun onLoginClick(openScreen: (String) -> Unit) = openScreen(LOG_IN_SCREEN)
 
