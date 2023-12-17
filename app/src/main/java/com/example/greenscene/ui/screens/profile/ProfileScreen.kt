@@ -1,4 +1,4 @@
-package com.example.greenscene.ui.views.profile
+package com.example.greenscene.ui.screens.profile
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -21,13 +21,17 @@ import com.example.greenscene.R.string as AppText
 
 @ExperimentalMaterialApi
 @Composable
-fun ProfileView(
+fun ProfileScreen(
     restartApp: (String) -> Unit,
     openScreen: (String) -> Unit,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsState(
+        initial = ProfileUiState(false)
+    )
+
     ProfileViewContent(
-        uiState = viewModel.uiState,
+        uiState = uiState,
         onLoginClick = { viewModel.onLoginClick(openScreen) },
         onSignUpClick = { viewModel.onSignUpClick(openScreen) },
         onSignOutClick = { viewModel.onSignOutClick(restartApp) }

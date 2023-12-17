@@ -22,10 +22,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.greenscene.ui.components.AlertBar
 import com.example.greenscene.ui.components.BottomBar
-import com.example.greenscene.ui.views.MapView
-import com.example.greenscene.ui.views.log_in.LogInView
-import com.example.greenscene.ui.views.profile.ProfileView
-import com.example.greenscene.ui.views.sign_up.SignUpView
+import com.example.greenscene.ui.screens.MapView
+import com.example.greenscene.ui.screens.log_in.LogInScreen
+import com.example.greenscene.ui.screens.profile.ProfileScreen
+import com.example.greenscene.ui.screens.sign_up.SignUpScreen
 import kotlinx.coroutines.CoroutineScope
 
 
@@ -82,7 +82,7 @@ fun NavGraphBuilder.greenSceneGraph(
     }
 
     composable(PROFILE_SCREEN) {
-        ProfileView(
+        ProfileScreen(
             restartApp = { route -> appState.clearAndNavigate(route) },
             openScreen = { route ->
                 run {
@@ -94,12 +94,12 @@ fun NavGraphBuilder.greenSceneGraph(
     }
 
     composable(SIGN_UP_SCREEN) {
-        SignUpView(
+        SignUpScreen(
             openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) }
         )
     }
 
     composable(LOG_IN_SCREEN) {
-        LogInView()
+        LogInScreen()
     }
 }

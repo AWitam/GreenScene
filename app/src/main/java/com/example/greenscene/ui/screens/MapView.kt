@@ -1,4 +1,4 @@
-package com.example.greenscene.ui.views
+package com.example.greenscene.ui.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable

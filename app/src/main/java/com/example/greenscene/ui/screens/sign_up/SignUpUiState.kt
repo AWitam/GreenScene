@@ -1,4 +1,4 @@
-package com.example.greenscene.ui.views.sign_up
+package com.example.greenscene.ui.screens.sign_up
 
 data class SignUpUiState(
     val email: String = "",

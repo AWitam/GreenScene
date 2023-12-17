@@ -1,4 +1,4 @@
-package com.example.greenscene.ui.views
+package com.example.greenscene.ui.screens
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +15,7 @@ open class GreenSceneViewModel : ViewModel() {
                 if (snackbar) {
                     SnackbarManager.showMessage(throwable.toSnackbarMessage())
                 }
-                println(throwable) // todo: replace with LogService
+                println("throw $throwable") // todo: replace with LogService
             },
             block = block
         )

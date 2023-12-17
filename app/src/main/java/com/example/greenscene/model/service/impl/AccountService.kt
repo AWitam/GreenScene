@@ -1,5 +1,6 @@
 package com.example.greenscene.model.service.impl
 
+import android.util.Log
 import com.example.greenscene.model.User
 import com.example.greenscene.model.service.AccountService
 import com.google.firebase.auth.EmailAuthProvider
