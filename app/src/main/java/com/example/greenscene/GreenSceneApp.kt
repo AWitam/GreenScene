@@ -10,8 +10,11 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -19,6 +22,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.greenscene.ui.components.AlertBar
 import com.example.greenscene.ui.components.BottomBar
@@ -40,7 +44,7 @@ fun GreenSceneApp() {
         topBar = {
             AlertBar(context)
         },
-        bottomBar = { BottomBar(appState.navController) },
+        bottomBar = { if (appState.bottomBarState.value) BottomBar(appState.navController) },
         modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
         NavHost(
@@ -67,8 +71,24 @@ fun rememberAppState(
     navController: NavHostController = rememberNavController(),
     resources: Resources = resources(),
     coroutineScope: CoroutineScope = rememberCoroutineScope()
-) = remember(scaffoldState, navController, resources, coroutineScope) {
-    GreenSceneAppState(scaffoldState, navController, resources, coroutineScope)
+): GreenSceneAppState {
+    val bottomBarState = rememberSaveable { (mutableStateOf(false)) }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+    when (navBackStackEntry?.destination?.route) {
+        SPLASH_SCREEN -> {
+            bottomBarState.value = false
+        }
+
+        else ->
+            bottomBarState.value = true
+    }
+
+     val appState = remember(scaffoldState, bottomBarState,  navController, resources, coroutineScope) {
+        GreenSceneAppState(scaffoldState, navController, bottomBarState, resources, coroutineScope)
+    }
+
+    return appState
 }
 
 
@@ -79,7 +99,7 @@ fun NavGraphBuilder.greenSceneGraph(
 
     composable(SPLASH_SCREEN) {
         SplashScreen(
-          openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) }
+            openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) }
         )
     }
 
