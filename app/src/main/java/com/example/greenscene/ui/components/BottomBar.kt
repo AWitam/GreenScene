@@ -22,7 +22,7 @@ import com.example.greenscene.ui.theme.NavigationBarHeight
 fun BottomBar(navController: NavController) {
     NavigationBar(
         modifier = Modifier.height(NavigationBarHeight),
-        containerColor = MaterialTheme.colorScheme.onPrimary
+        containerColor = MaterialTheme.colorScheme.secondaryContainer,
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
@@ -58,7 +58,7 @@ fun BottomBar(navController: NavController) {
 @Preview
 @Composable
 fun BottomBarPreview() {
-    GreenSceneTheme {
+    GreenSceneTheme(useDarkTheme = true) {
         BottomBar(navController = NavController(LocalContext.current))
     }
 }
