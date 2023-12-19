@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +29,7 @@ fun DangerousCardEditor(
     modifier: Modifier,
     onEditClick: () -> Unit
 ) {
-    CardEditor(title, icon, content, onEditClick, MaterialTheme.colors.primary, modifier)
+    CardEditor(title, icon, content, onEditClick, MaterialTheme.colorScheme.primary, modifier)
 }
 
 @Composable
@@ -40,7 +40,7 @@ fun RegularCardEditor(
     modifier: Modifier,
     onEditClick: () -> Unit
 ) {
-    CardEditor(title, icon, content, onEditClick, MaterialTheme.colors.onSurface, modifier)
+    CardEditor(title, icon, content, onEditClick, MaterialTheme.colorScheme.onSurface, modifier)
 }
 
 @Composable
@@ -57,7 +57,7 @@ private fun CardEditor(
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .background(MaterialTheme.colors.surface)
+            .background(MaterialTheme.colorScheme.surface)
             .clickable { onEditClick() }
 
     ) {

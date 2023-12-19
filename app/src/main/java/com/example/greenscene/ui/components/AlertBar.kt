@@ -8,8 +8,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -56,10 +56,10 @@ fun AlertBar(context: Context) {
                 text = stringResource(AppText.no_connection),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(colors.error)
+                    .background(colorScheme.error)
                     .padding(8.dp),
                 textAlign = TextAlign.Center,
-                color = colors.onError
+                color = colorScheme.onError
             )
         }
     }
