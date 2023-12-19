@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,9 +18,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.greenscene.common.extensions.fieldModifier
 import com.example.greenscene.ui.components.EmailField
 import com.example.greenscene.ui.components.PasswordField
 import com.example.greenscene.ui.components.RepeatPasswordField
+import com.example.greenscene.ui.components.ToolbarWithNavigationIcon
 import com.example.greenscene.ui.theme.GreenSceneTheme
 import com.example.greenscene.R.string as AppText
 
@@ -27,12 +30,14 @@ import com.example.greenscene.R.string as AppText
 @Composable
 fun SignUpScreen(
     openAndPopUp: (String, String) -> Unit,
+    popUp: () -> Unit,
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState
 
     SignUpScreenContent(
         uiState = uiState,
+        onBackIconClicked = { viewModel.onBackIconClicked(popUp) },
         onEmailChange = viewModel::onEmailChange,
         onPasswordChange = viewModel::onPasswordChange,
         onRepeatPasswordChange = viewModel::onRepeatPasswordChange,
@@ -44,34 +49,42 @@ fun SignUpScreen(
 fun SignUpScreenContent(
     modifier: Modifier = Modifier,
     uiState: SignUpUiState,
+    onBackIconClicked: () -> Unit,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onRepeatPasswordChange: (String) -> Unit,
     onSignUpClick: () -> Unit
 ) {
+    Scaffold(
+        topBar = {
+            ToolbarWithNavigationIcon(
+                title = AppText.create_account,
+                onBackIconClicked = { onBackIconClicked() })
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .verticalScroll(rememberScrollState())
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            EmailField(uiState.email, onEmailChange, Modifier.fieldModifier())
+            PasswordField(uiState.password, onPasswordChange, Modifier.fieldModifier())
+            RepeatPasswordField(
+                uiState.repeatPassword,
+                onRepeatPasswordChange,
+                Modifier.fieldModifier()
+            )
 
-//    BasicToolbar(AppText.create_account)
-
-    val fieldModifier = Modifier
-
-        .padding(16.dp)
-
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        EmailField(uiState.email, onEmailChange, fieldModifier)
-        PasswordField(uiState.password, onPasswordChange, fieldModifier)
-        RepeatPasswordField(uiState.repeatPassword, onRepeatPasswordChange, fieldModifier)
-
-        Button(onClick = { onSignUpClick() }, Modifier.padding(top = 16.dp)) {
-            Text(text = stringResource(id = AppText.create_account))
+            Button(onClick = { onSignUpClick() }, Modifier.padding(top = 16.dp)) {
+                Text(text = stringResource(id = AppText.create_account))
+            }
         }
     }
+
 }
 
 
@@ -85,6 +98,7 @@ fun SignUpScreenPreview() {
     GreenSceneTheme {
         SignUpScreenContent(
             uiState = uiState,
+            onBackIconClicked = { },
             onEmailChange = { },
             onPasswordChange = { },
             onRepeatPasswordChange = { },

@@ -12,7 +12,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.greenscene.common.extensions.card
 import com.example.greenscene.common.extensions.spacer
-import com.example.greenscene.ui.components.BasicToolbar
 import com.example.greenscene.ui.components.RegularCardEditor
 import com.example.greenscene.ui.theme.GreenSceneTheme
 import com.example.greenscene.R.drawable as AppIcon
@@ -54,7 +53,6 @@ fun ProfileViewContent(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BasicToolbar(AppText.profile)
 
         Spacer(modifier = Modifier.spacer())
 

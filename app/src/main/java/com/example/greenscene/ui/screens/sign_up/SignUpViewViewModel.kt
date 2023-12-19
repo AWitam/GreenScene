@@ -26,6 +26,10 @@ class SignUpViewModel @Inject constructor(
     private val password
         get() = uiState.value.password
 
+    fun onBackIconClicked(popUp: () -> Unit) {
+        popUp()
+    }
+
     fun onEmailChange(newValue: String) {
         uiState.value = uiState.value.copy(email = newValue)
     }

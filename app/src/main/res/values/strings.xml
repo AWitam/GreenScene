@@ -36,8 +36,15 @@
     <string name="delete_my_account">Delete my account</string>
 
     <!-- Dialogs -->
-    <string name="sign_out_title">Sign out?</string>
-    <string name="sign_out_description">You will have to sign in again to see your tasks.</string>
+    <string name="sign_out_title">Sign out</string>
+    <string name="sign_out_description">Do you really want to sign out?</string>
+
+    <!-- Image and Icons content description -->
+    <string name="arrow_back_content_description">Go back</string>
+
+    <!-- Alerts -->
+    <string name='no_connection'>No internet connection</string>
+
 
 
 </resources>

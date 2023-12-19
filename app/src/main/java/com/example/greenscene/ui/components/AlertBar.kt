@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,12 +17,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.greenscene.common.connectivity.ConnectivityObserver
 import com.example.greenscene.common.connectivity.NetworkConnectivityObserver
 import com.example.greenscene.common.connectivity.SystemBroadcastReceiver
 import com.example.greenscene.common.connectivity.isAirplaneModeOn
+import com.example.greenscene.R.string as AppText
 
 @Composable
 fun AlertBar(context: Context) {
@@ -41,7 +42,7 @@ fun AlertBar(context: Context) {
     connectivityObserver = NetworkConnectivityObserver(context)
 
     val networkConnection by connectivityObserver.observe().collectAsState(
-        initial = ConnectivityObserver.Status.Unavailable
+        initial = ConnectivityObserver.Status.Available
     )
 
 
@@ -52,7 +53,7 @@ fun AlertBar(context: Context) {
     if (noConnection) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Text(
-                text = "No Internet Connection",
+                text = stringResource(AppText.no_connection),
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(colors.error)
