@@ -7,17 +7,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.greenscene.common.extensions.basicButton
 import com.example.greenscene.common.extensions.fieldModifier
 import com.example.greenscene.ui.components.EmailField
 import com.example.greenscene.ui.components.PasswordField
@@ -79,7 +79,7 @@ fun SignUpScreenContent(
                 Modifier.fieldModifier()
             )
 
-            Button(onClick = { onSignUpClick() }, Modifier.padding(top = 16.dp)) {
+            Button(onClick = { onSignUpClick() }, Modifier.basicButton()) {
                 Text(text = stringResource(id = AppText.create_account))
             }
         }
