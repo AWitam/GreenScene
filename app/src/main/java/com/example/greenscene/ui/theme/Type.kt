@@ -53,7 +53,7 @@ val typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 20.sp,
-        letterSpacing = 0.5.sp
+        letterSpacing = 0.2.sp
     ),
     bodySmall = TextStyle(
         fontFamily = urbanistFontFamily,

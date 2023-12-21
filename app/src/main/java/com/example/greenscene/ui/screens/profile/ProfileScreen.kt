@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.greenscene.ui.components.BasicToolbar
 import com.example.greenscene.ui.components.Divider
 import com.example.greenscene.ui.screens.profile.components.ProfileInfo
+import com.example.greenscene.ui.screens.profile.components.WelcomeCard
 import com.example.greenscene.ui.screens.profile.components.options_list.LogoutLink
 import com.example.greenscene.ui.screens.profile.components.options_list.ProfileOptionsList
 import com.example.greenscene.ui.theme.GreenSceneTheme
@@ -56,13 +57,16 @@ fun ProfileViewContent(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(24.dp)
+            .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
+        Spacer(modifier = Modifier.height(16.dp))
         if (uiState.isAnonymousAccount) {
-
+            WelcomeCard(
+                onLoginClick = onLoginClick,
+                onSignUpClick = onSignUpClick
+            )
         } else {
             ProfileInfo(uiState)
             Divider()

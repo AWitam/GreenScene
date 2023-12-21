@@ -46,9 +46,6 @@ fun ProfileInfo(uiState: ProfileUiState, modifier: Modifier = Modifier) {
                 .align(Alignment.CenterHorizontally)
         )
 
-        if (uiState.name !== null && uiState.name.isNotBlank()) {
-            Text(text = uiState.name, modifier = Modifier.padding(top = 12.dp))
-        }
         Text(text = uiState.email, modifier = Modifier.padding(top = 8.dp))
     }
 

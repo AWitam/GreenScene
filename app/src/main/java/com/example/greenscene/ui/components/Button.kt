@@ -297,9 +297,9 @@ fun ButtonsPreview() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
-                FilledButton(text = R.string.sign_in, action = {}, size = ButtonSize.SMALL)
-                FilledButton(text = R.string.sign_in, action = {}, size = ButtonSize.MEDIUM)
-                FilledButton(text = R.string.sign_in, action = {}, size = ButtonSize.LARGE)
+                FilledButton(text = R.string.log_in, action = {}, size = ButtonSize.SMALL)
+                FilledButton(text = R.string.log_in, action = {}, size = ButtonSize.MEDIUM)
+                FilledButton(text = R.string.log_in, action = {}, size = ButtonSize.LARGE)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -309,19 +309,19 @@ fun ButtonsPreview() {
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 FilledButton(
-                    text = R.string.sign_in,
+                    text = R.string.log_in,
                     action = {},
                     size = ButtonSize.SMALL,
                     variant = ButtonVariant.SECONDARY
                 )
                 FilledButton(
-                    text = R.string.sign_in,
+                    text = R.string.log_in,
                     action = {},
                     size = ButtonSize.MEDIUM,
                     variant = ButtonVariant.SECONDARY
                 )
                 FilledButton(
-                    text = R.string.sign_in,
+                    text = R.string.log_in,
                     action = {},
                     size = ButtonSize.LARGE,
                     variant = ButtonVariant.SECONDARY
@@ -335,19 +335,19 @@ fun ButtonsPreview() {
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 FilledButton(
-                    text = R.string.sign_in,
+                    text = R.string.log_in,
                     action = {},
                     size = ButtonSize.SMALL,
                     variant = ButtonVariant.DANGER
                 )
                 FilledButton(
-                    text = R.string.sign_in,
+                    text = R.string.log_in,
                     action = {},
                     size = ButtonSize.MEDIUM,
                     variant = ButtonVariant.DANGER
                 )
                 FilledButton(
-                    text = R.string.sign_in,
+                    text = R.string.log_in,
                     action = {},
                     size = ButtonSize.LARGE,
                     variant = ButtonVariant.DANGER
@@ -361,9 +361,9 @@ fun ButtonsPreview() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
-                OutlinedButton(text = R.string.sign_in, action = {}, size = ButtonSize.SMALL)
-                OutlinedButton(text = R.string.sign_in, action = {}, size = ButtonSize.MEDIUM)
-                OutlinedButton(text = R.string.sign_in, action = {}, size = ButtonSize.LARGE)
+                OutlinedButton(text = R.string.log_in, action = {}, size = ButtonSize.SMALL)
+                OutlinedButton(text = R.string.log_in, action = {}, size = ButtonSize.MEDIUM)
+                OutlinedButton(text = R.string.log_in, action = {}, size = ButtonSize.LARGE)
 
             }
 
@@ -374,9 +374,9 @@ fun ButtonsPreview() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
-                TonalButton(text = R.string.sign_in, action = {}, size = ButtonSize.SMALL)
-                TonalButton(text = R.string.sign_in, action = {}, size = ButtonSize.MEDIUM)
-                TonalButton(text = R.string.sign_in, action = {}, size = ButtonSize.LARGE)
+                TonalButton(text = R.string.log_in, action = {}, size = ButtonSize.SMALL)
+                TonalButton(text = R.string.log_in, action = {}, size = ButtonSize.MEDIUM)
+                TonalButton(text = R.string.log_in, action = {}, size = ButtonSize.LARGE)
             }
         }
     }

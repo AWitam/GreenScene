@@ -39,7 +39,7 @@ fun LogoutLink(signOut: () -> Unit) {
     val sheetState = rememberModalBottomSheetState()
 
     InlineCard(
-        title = R.string.sign_out,
+        title = R.string.log_out_title,
         icon = R.drawable.logout,
         color = MaterialTheme.colorScheme.error,
         onClick = {

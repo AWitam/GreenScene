@@ -28,7 +28,7 @@ val theme_light_inverseOnSurface = Color(0xFFF0F1EC)
 val theme_light_inverseSurface = Color(0xFF2E312E)
 val theme_light_inversePrimary = Color( 0xFF59DF82)
 val theme_light_shadow = Color(0xFF000000)
-val theme_light_surfaceTint = Color(0xFF006D33)
+val theme_light_surfaceTint = Color(0xFFFFFFFF)
 val theme_light_outlineVariant = Color(0xFFEEEEEE)
 val theme_light_scrim = Color(0xFF000000)
 

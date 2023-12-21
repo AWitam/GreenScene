@@ -19,7 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.greenscene.common.extensions.basicButton
 import com.example.greenscene.common.extensions.fieldModifier
+import com.example.greenscene.ui.components.ButtonSize
 import com.example.greenscene.ui.components.EmailField
+import com.example.greenscene.ui.components.FilledButton
 import com.example.greenscene.ui.components.PasswordField
 import com.example.greenscene.ui.components.RepeatPasswordField
 import com.example.greenscene.ui.components.ToolbarWithNavigationIcon
@@ -79,9 +81,12 @@ fun SignUpScreenContent(
                 Modifier.fieldModifier()
             )
 
-            Button(onClick = { onSignUpClick() }, Modifier.basicButton()) {
-                Text(text = stringResource(id = AppText.create_account))
-            }
+            FilledButton(
+                text = AppText.sign_up,
+                action = { onSignUpClick() },
+                size = ButtonSize.LARGE,
+                modifier = Modifier.basicButton()
+            )
         }
     }
 
