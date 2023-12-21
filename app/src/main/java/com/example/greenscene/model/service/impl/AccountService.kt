@@ -1,6 +1,5 @@
 package com.example.greenscene.model.service.impl
 
-import android.util.Log
 import com.example.greenscene.model.User
 import com.example.greenscene.model.service.AccountService
 import com.google.firebase.auth.EmailAuthProvider
@@ -23,7 +22,19 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
         get() = callbackFlow {
             val listener =
                 FirebaseAuth.AuthStateListener { auth ->
-                    this.trySend(auth.currentUser?.let { User(it.uid, it.isAnonymous) } ?: User())
+                    val name = auth.currentUser?.displayName.toString()
+                    val photoUrl = auth.currentUser?.photoUrl.toString()
+                    val email = auth.currentUser?.email.toString()
+
+                    this.trySend(auth.currentUser?.let {
+                        User(
+                            id = it.uid,
+                            isAnonymous = it.isAnonymous,
+                            name = name,
+                            email= email,
+                            photoUrl = photoUrl,
+                        )
+                    } ?: User())
                 }
             auth.addAuthStateListener(listener)
             awaitClose { auth.removeAuthStateListener(listener) }

@@ -12,15 +12,25 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val accountService: AccountService
 ) : GreenSceneViewModel() {
-    val uiState = accountService.currentUser.map {
-        ProfileUiState(it.isAnonymous)
+      val uiState = accountService.currentUser.map {
+        ProfileUiState(
+            isAnonymousAccount = it.isAnonymous,
+            name = it.name,
+            email = it.email,
+            photoUrl = it.photoUrl
+        )
+    }
+
+
+    fun onBackIconClicked(popUp: () -> Unit) {
+        popUp()
     }
 
     fun onLoginClick(openScreen: (String) -> Unit) = openScreen(LOG_IN_SCREEN)
 
     fun onSignUpClick(openScreen: (String) -> Unit) = openScreen(SIGN_UP_SCREEN)
 
-    fun onSignOutClick(restartApp: (String) -> Unit) {
+    fun onLogOutClick(restartApp: (String) -> Unit) {
         launchCatching {
             accountService.signOut()
             // todo: replace with restart app and go to splash screen

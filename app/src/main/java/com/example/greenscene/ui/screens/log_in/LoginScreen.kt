@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -21,7 +20,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.greenscene.common.extensions.basicButton
 import com.example.greenscene.common.extensions.fieldModifier
 import com.example.greenscene.common.extensions.textButton
+import com.example.greenscene.ui.components.ButtonSize
 import com.example.greenscene.ui.components.EmailField
+import com.example.greenscene.ui.components.FilledButton
 import com.example.greenscene.ui.components.PasswordField
 import com.example.greenscene.ui.components.ToolbarWithNavigationIcon
 import com.example.greenscene.ui.theme.GreenSceneTheme
@@ -77,9 +78,12 @@ fun LoginScreenContent(
                 onNewValue = onPasswordChange,
                 modifier = Modifier.fieldModifier()
             )
-            Button(onClick = { onSignInClick() }, modifier = Modifier.basicButton()) {
-                Text(text = stringResource(id = AppText.sign_in))
-            }
+            FilledButton(
+                text = AppText.log_in,
+                action = { onSignInClick() },
+                size = ButtonSize.LARGE,
+                modifier = Modifier.basicButton()
+            )
 
             TextButton(onClick = { onForgotPasswordClick() }, modifier = Modifier.textButton()) {
                 Text(text = stringResource(id = AppText.forgot_password))

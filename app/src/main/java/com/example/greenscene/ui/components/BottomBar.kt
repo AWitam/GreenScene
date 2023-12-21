@@ -8,7 +8,9 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -21,8 +23,9 @@ import com.example.greenscene.ui.theme.NavigationBarHeight
 @Composable
 fun BottomBar(navController: NavController) {
     NavigationBar(
-        modifier = Modifier.height(NavigationBarHeight),
-        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+        modifier = Modifier
+            .height(NavigationBarHeight),
+        containerColor = Color.Transparent
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
@@ -30,7 +33,7 @@ fun BottomBar(navController: NavController) {
             val isSelected = currentDestination?.hierarchy?.any { it.route == route.screen } == true
             BottomNavigationItem(icon = {
                 Icon(
-                    route.icon,
+                    painter = painterResource(id = route.iconId),
                     contentDescription = null,
                     tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
                 )

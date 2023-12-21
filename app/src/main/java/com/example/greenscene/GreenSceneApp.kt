@@ -1,7 +1,6 @@
 package com.example.greenscene
 
 import android.content.res.Resources
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -137,13 +136,15 @@ fun NavGraphBuilder.greenSceneGraph(
     }
 
     composable(PROFILE_SCREEN) {
-        ProfileScreen(restartApp = { route -> appState.clearAndNavigate(route) },
+        ProfileScreen(
+            restartApp = { route -> appState.clearAndNavigate(route) },
             openScreen = { route ->
                 run {
-                    Log.d("Change Route", "openScreen: $route")
                     appState.navigate(route)
                 }
-            })
+            },
+            popUp = appState::popUp
+        )
     }
 
     composable(SIGN_UP_SCREEN) {
