@@ -33,11 +33,14 @@
     <!-- ProfileScreen -->
     <string name="profile">Profile</string>
     <string name="sign_out">Sign out</string>
+    <string name="edit_profile">Edit profile</string>
     <string name="delete_my_account">Delete my account</string>
 
     <!-- Dialogs -->
-    <string name="sign_out_title">Sign out</string>
-    <string name="sign_out_description">Do you really want to sign out?</string>
+    <string name="log_out_title">Logout</string>
+    <string name="log_out_description">Are you sure you want to log out?</string>
+    <string name="log_out_confirm">Yes, Logout</string>
+    <string name="log_out_cancel">Cancel</string>
 
     <!-- Image and Icons content description -->
     <string name="arrow_back_content_description">Go back</string>

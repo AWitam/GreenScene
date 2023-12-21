@@ -1,11 +1,6 @@
 package com.example.greenscene
 
 import androidx.annotation.StringRes
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.ui.graphics.vector.ImageVector
-
 
 const val SPLASH_SCREEN = "SplashScreen"
 const val SIGN_UP_SCREEN = "SignUpScreen"
@@ -15,10 +10,10 @@ const val MAP_SCREEN = "MapScreen"
 const val PROFILE_SCREEN = "ProfileScreen"
 
 sealed class BottomNavRoute(
-    val screen: String, @StringRes val resourceId: Int, val icon: ImageVector
+    val screen: String, @StringRes val resourceId: Int, val iconId: Int
 ) {
-    object Map : BottomNavRoute(MAP_SCREEN, R.string.map_route, Icons.Filled.LocationOn)
-    object Profile : BottomNavRoute(PROFILE_SCREEN, R.string.profile_route, Icons.Filled.Person)
+    object Map : BottomNavRoute(MAP_SCREEN, R.string.map_route, R.drawable.location)
+    object Profile : BottomNavRoute(PROFILE_SCREEN, R.string.profile_route, R.drawable.profile)
 }
 
 val bottomNavRoutes = listOf(
