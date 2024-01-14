@@ -32,7 +32,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.greenscene.common.snackbar.SnackbarManager
 import com.example.greenscene.ui.components.AlertBar
 import com.example.greenscene.ui.components.BottomBar
-import com.example.greenscene.ui.screens.MapScreen
+import com.example.greenscene.ui.screens.map.MapScreen
 import com.example.greenscene.ui.screens.log_in.LogInScreen
 import com.example.greenscene.ui.screens.profile.ProfileScreen
 import com.example.greenscene.ui.screens.sign_up.SignUpScreen

@@ -32,12 +32,30 @@
     <!-- ProfileScreen -->
     <string name="profile">Profile</string>
     <string name="log_in">Log in</string>
-    <string name ="sign_up">Sign up</string>
+    <string name="sign_up">Sign up</string>
     <string name="sign_out">Sign out</string>
     <string name="edit_profile">Edit profile</string>
     <string name="delete_my_account">Delete my account</string>
     <string name="welcome_card_title">Welcome to GreenScene!</string>
     <string name="welcome_card_description">Search vegan restaurants near you, leave reviews and save your favourites!</string>
+
+    <!-- MapScreen -->
+    <string name="location_request_icon_alt">Location not enabled icon</string>
+    <string name="location_request_title">Location not enabled</string>
+    <string name="location_request_description">GreenScene uses your location to show you nearby vegan restaurants, cafes, and eateries. Unearth delicious plant-based options right at your fingertips!</string>
+    <string name="location_request_button">Enable location</string>
+    <string name="location_rationale_title">Please enable location</string>
+    <string name="location_rationale_description">
+        GreenScene uses your location to show you nearby vegan restaurants, cafes, and eateries.
+    </string>
+    <string name="location_rationale_privacy_note">Your Privacy Matters:
+          We value your privacy. Be assured, your location data is treated with utmost care and used solely to enhance your vegan dining experience.
+    </string>
+    <string name="location_rationale_continue">Continue</string>
+    <string name="location_rationale_dismiss">Dismiss</string>
+    <string name="location_got_to_settings_button">Go to settings</string>
+    <string name="location_request_denied_error">You denied location access. Please enable location again by going to your settings.</string>
+
 
 
     <!-- Dialogs -->
