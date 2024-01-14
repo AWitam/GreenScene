@@ -163,7 +163,7 @@ private fun RequestLocationCTA(
             contentDescription = stringResource(id = R.string.location_request_icon_alt),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(170.dp),
+                .height(160.dp),
             contentScale = ContentScale.Fit,
         )
 
@@ -178,16 +178,8 @@ private fun RequestLocationCTA(
             modifier = Modifier.padding(16.dp),
             textAlign = TextAlign.Center,
         )
-
-
+        Spacer(modifier = Modifier.height(16.dp))
         Row {
-            FilledButton(
-                text = R.string.location_request_button,
-                action = onButtonClick,
-                size = ButtonSize.LARGE
-            )
-
-            Spacer(modifier = Modifier.width(16.dp))
             OutlinedButton(
                 text = R.string.location_got_to_settings_button, action = {
                     context.startActivity(
@@ -197,6 +189,12 @@ private fun RequestLocationCTA(
                         )
                     )
                 }, size = ButtonSize.LARGE
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            FilledButton(
+                text = R.string.location_request_button,
+                action = onButtonClick,
+                size = ButtonSize.LARGE
             )
         }
 
