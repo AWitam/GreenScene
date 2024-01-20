@@ -1,21 +1,23 @@
 package com.example.greenscene.ui.screens.map
 
-import android.Manifest
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.CameraUpdateFactory.*
@@ -34,30 +36,38 @@ import kotlinx.coroutines.tasks.await
 
 @SuppressLint("MissingPermission")
 @Composable
-fun MapScreen() {
-    val permissions = listOf(
-        Manifest.permission.ACCESS_COARSE_LOCATION,
-        Manifest.permission.ACCESS_FINE_LOCATION,
-    )
+fun MapScreen(viewModel: MapViewModel = hiltViewModel() ) {
+
+    val uiState = viewModel.uiState.collectAsState()
+    val usePreciseLocation = true
+
     LocationPermissionBox(
-        permissions = permissions,
         onGranted = {
-            Location(true)
+            Location(
+                usePreciseLocation = usePreciseLocation,
+                uiState = uiState,
+                onCurrentLocationChanged = viewModel::onCurrentLocationChanged,
+            )
         },
     )
 }
 
 @SuppressLint("MissingPermission")
 @Composable
-fun Location(usePreciseLocation: Boolean) {
+fun Location(
+    usePreciseLocation: Boolean,
+    uiState: State<MapUIState>,
+    onCurrentLocationChanged: (LatLng) -> Unit,
+
+    ) {
+    val currentLocationState = uiState.value.currentLocation
+
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
     val locationClient = remember {
         LocationServices.getFusedLocationProviderClient(context)
     }
-    var location by remember { mutableStateOf<LatLng?>(null) }
-    var isLoading by remember { mutableStateOf(true) }
 
     LaunchedEffect(key1 = locationClient) {
         scope.launch(Dispatchers.IO) {
@@ -71,8 +81,8 @@ fun Location(usePreciseLocation: Boolean) {
                 priority, CancellationTokenSource().token
             ).await()
             currentLocationResult?.let { fetchedLocation ->
-                location = LatLng(fetchedLocation.latitude, fetchedLocation.longitude)
-                isLoading = false
+                onCurrentLocationChanged(LatLng(fetchedLocation.latitude, fetchedLocation.longitude))
+
             }
         }
     }
@@ -82,23 +92,33 @@ fun Location(usePreciseLocation: Boolean) {
         mutableStateOf(MapProperties(mapType = MapType.NORMAL, isMyLocationEnabled = true))
     }
 
-    if (isLoading || location == null) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator(color = MaterialTheme.colorScheme.onBackground)
-        }
-    } else {
-        location?.let {
-            val cameraPositionState = rememberCameraPositionState {
-                position = CameraPosition.fromLatLngZoom(it, 17f)
-            }
 
-            GoogleMap(
-                cameraPositionState = cameraPositionState,
-                uiSettings = uiSettings,
-                properties = mapProperties,
-            )
+    when(currentLocationState) {
+        is CurrentLocationState.Loading -> {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator(color = MaterialTheme.colorScheme.onBackground)
+            }
         }
-    }
+        is CurrentLocationState.Error -> {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(text = "Error")
+            }
+        }
+        is CurrentLocationState.DataLoaded -> {
+            currentLocationState.let {
+                val cameraPositionState = rememberCameraPositionState {
+                    position = CameraPosition.fromLatLngZoom(it.data.location, 17f)
+                }
+
+                GoogleMap(
+                    cameraPositionState = cameraPositionState,
+                    uiSettings = uiSettings,
+                    properties = mapProperties,
+                )
+            }
+        }
+}
+
 }
 
 
