@@ -10,8 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -25,9 +23,6 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapProperties
-import com.google.maps.android.compose.MapType
-import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,7 +32,6 @@ import kotlinx.coroutines.tasks.await
 @SuppressLint("MissingPermission")
 @Composable
 fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
-
     val uiState = viewModel.uiState.collectAsState()
     val usePreciseLocation = true
 
@@ -60,7 +54,7 @@ fun Location(
     onCurrentLocationChanged: (LatLng) -> Unit,
 
     ) {
-    val currentLocationState = uiState.value.currentLocation
+    val (currentLocationState, mapProperties, mapUISettings) = uiState.value
 
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -71,7 +65,6 @@ fun Location(
 
     LaunchedEffect(key1 = locationClient) {
         scope.launch(Dispatchers.IO) {
-
             val priority = if (usePreciseLocation) {
                 Priority.PRIORITY_HIGH_ACCURACY
             } else {
@@ -83,20 +76,13 @@ fun Location(
             currentLocationResult?.let { fetchedLocation ->
                 onCurrentLocationChanged(
                     LatLng(
-                        fetchedLocation.latitude,
-                        fetchedLocation.longitude
+                        fetchedLocation.latitude, fetchedLocation.longitude
                     )
                 )
 
             }
         }
     }
-
-    val uiSettings by remember { mutableStateOf(MapUiSettings(myLocationButtonEnabled = true)) }
-    val mapProperties by remember {
-        mutableStateOf(MapProperties(mapType = MapType.NORMAL, isMyLocationEnabled = true))
-    }
-
 
     when (currentLocationState) {
         is CurrentLocationState.Loading -> {
@@ -119,7 +105,7 @@ fun Location(
 
                 GoogleMap(
                     cameraPositionState = cameraPositionState,
-                    uiSettings = uiSettings,
+                    uiSettings = mapUISettings,
                     properties = mapProperties,
                 )
             }
