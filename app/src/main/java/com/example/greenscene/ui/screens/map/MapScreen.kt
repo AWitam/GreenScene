@@ -36,7 +36,7 @@ import kotlinx.coroutines.tasks.await
 
 @SuppressLint("MissingPermission")
 @Composable
-fun MapScreen(viewModel: MapViewModel = hiltViewModel() ) {
+fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
 
     val uiState = viewModel.uiState.collectAsState()
     val usePreciseLocation = true
@@ -81,7 +81,12 @@ fun Location(
                 priority, CancellationTokenSource().token
             ).await()
             currentLocationResult?.let { fetchedLocation ->
-                onCurrentLocationChanged(LatLng(fetchedLocation.latitude, fetchedLocation.longitude))
+                onCurrentLocationChanged(
+                    LatLng(
+                        fetchedLocation.latitude,
+                        fetchedLocation.longitude
+                    )
+                )
 
             }
         }
@@ -93,17 +98,19 @@ fun Location(
     }
 
 
-    when(currentLocationState) {
+    when (currentLocationState) {
         is CurrentLocationState.Loading -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator(color = MaterialTheme.colorScheme.onBackground)
             }
         }
+
         is CurrentLocationState.Error -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(text = "Error")
             }
         }
+
         is CurrentLocationState.DataLoaded -> {
             currentLocationState.let {
                 val cameraPositionState = rememberCameraPositionState {
@@ -117,7 +124,7 @@ fun Location(
                 )
             }
         }
-}
+    }
 
 }
 
