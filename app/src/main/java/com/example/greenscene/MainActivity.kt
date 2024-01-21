@@ -15,7 +15,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             GreenSceneTheme {
-                // A surface container using the 'background' color from the theme
                 GreenSceneApp()
             }
         }
