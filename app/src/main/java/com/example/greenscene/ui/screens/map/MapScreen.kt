@@ -2,7 +2,9 @@ package com.example.greenscene.ui.screens.map
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.greenscene.model.Restaurant
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.CameraUpdateFactory.*
@@ -37,11 +40,12 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
 
     LocationPermissionBox(
         onGranted = {
-            Location(
+            RestaurantMap(
                 usePreciseLocation = usePreciseLocation,
                 uiState = uiState,
                 onCurrentLocationChanged = viewModel::onCurrentLocationChanged,
                 getNearbyRestaurants = viewModel::getNearbyRestaurants,
+                onRestaurantSelected = viewModel::onRestaurantSelected,
             )
         },
     )
@@ -49,11 +53,12 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
 
 @SuppressLint("MissingPermission")
 @Composable
-fun Location(
+fun RestaurantMap(
     usePreciseLocation: Boolean,
     uiState: State<MapUIState>,
     onCurrentLocationChanged: (LatLng) -> Unit,
     getNearbyRestaurants: () -> Unit,
+    onRestaurantSelected: (Restaurant) -> Unit,
 ) {
     val (currentLocationState, mapProperties, mapUISettings) = uiState.value
 
@@ -112,23 +117,44 @@ fun Location(
                 val cameraPositionState = rememberCameraPositionState {
                     position = CameraPosition.fromLatLngZoom(it.data.location, 17f)
                 }
-                GoogleMap(
-                    cameraPositionState = cameraPositionState,
-                    uiSettings = mapUISettings,
-                    properties = mapProperties,
-                ) {
-                    if (uiState.value.restaurants.isNotEmpty()) {
-                        uiState.value.restaurants.forEach { restaurant ->
-                            RestaurantMarker(
-                                restaurant = restaurant,
+
+                Box(modifier = Modifier.fillMaxSize()) {
+                    GoogleMap(
+                        cameraPositionState = cameraPositionState,
+                        uiSettings = mapUISettings,
+                        properties = mapProperties,
+                    ) {
+                        if (uiState.value.restaurants.isNotEmpty()) {
+                            uiState.value.restaurants.forEach { restaurant ->
+                                RestaurantMarker(
+                                    restaurant = restaurant,
+                                    onClick = {
+                                        onRestaurantSelected(restaurant)
+                                    }
+                                )
+                            }
+                        }
+                    }
+
+                    if (uiState.value.selectedRestaurant != null) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .align(Alignment.BottomCenter)
+                        ) {
+                            RestaurantCard(
+                                name = uiState.value.selectedRestaurant!!.name,
+                                address = uiState.value.selectedRestaurant!!.address
                             )
                         }
                     }
                 }
             }
         }
-
     }
+
 }
+
+
 
 
