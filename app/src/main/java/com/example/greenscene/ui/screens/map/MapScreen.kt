@@ -2,7 +2,9 @@ package com.example.greenscene.ui.screens.map
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -41,6 +43,7 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
                 usePreciseLocation = usePreciseLocation,
                 uiState = uiState,
                 onCurrentLocationChanged = viewModel::onCurrentLocationChanged,
+                onFetchRestaurants = viewModel::getNearbyRestaurants,
             )
         },
     )
@@ -52,8 +55,8 @@ fun Location(
     usePreciseLocation: Boolean,
     uiState: State<MapUIState>,
     onCurrentLocationChanged: (LatLng) -> Unit,
-
-    ) {
+    onFetchRestaurants: () -> Unit,
+) {
     val (currentLocationState, mapProperties, mapUISettings) = uiState.value
 
     val context = LocalContext.current
@@ -102,7 +105,6 @@ fun Location(
                 val cameraPositionState = rememberCameraPositionState {
                     position = CameraPosition.fromLatLngZoom(it.data.location, 17f)
                 }
-
                 GoogleMap(
                     cameraPositionState = cameraPositionState,
                     uiSettings = mapUISettings,

@@ -1,5 +1,6 @@
 package com.example.greenscene.ui.screens.map
 
+import com.example.greenscene.model.Restaurant
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
@@ -18,4 +19,5 @@ data class MapUIState(
     val currentLocation: CurrentLocationState = CurrentLocationState.Loading,
     val mapProperties: MapProperties = MapProperties(isMyLocationEnabled = true),
     val mapUiSettings: MapUiSettings = MapUiSettings(myLocationButtonEnabled = true),
+    val restaurants: List<Restaurant?> = emptyList(),
 )
