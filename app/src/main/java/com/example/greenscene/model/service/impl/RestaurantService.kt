@@ -25,7 +25,7 @@ class RestaurantServiceImpl @Inject constructor(
     override suspend fun getNearbyRestaurants(
         currentLocation: LatLng,
         radius: Double,
-        onSuccess: (List<Restaurant?>) -> Unit,
+        onSuccess: (List<Restaurant>) -> Unit,
         onError: (Throwable) -> Unit
     ) {
 
@@ -55,9 +55,7 @@ class RestaurantServiceImpl @Inject constructor(
                         val long = geoPoint?.longitude
 
                         if(lat == null || long == null) {
-
                             continue
-
                         }
                         val docLocation = GeoLocation(lat, long)
                         val distanceInM = GeoFireUtils.getDistanceBetween(docLocation, center)
@@ -71,7 +69,7 @@ class RestaurantServiceImpl @Inject constructor(
                     doc.toObject<Restaurant>()
                 }
 
-                onSuccess(restaurants)
+                onSuccess(restaurants.filterNotNull())
             }.addOnFailureListener(onError)
     }
 

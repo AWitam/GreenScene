@@ -40,7 +40,6 @@ class MapViewModel @Inject constructor(
                         (_uiState.value.currentLocation as CurrentLocationState.DataLoaded).data.location
 
                     viewModelScope.launch {
-
                         restaurantService.getNearbyRestaurants(currentLocation = location,
                             radius = 50 * 1000.0,
                             onError = {},
@@ -53,13 +52,10 @@ class MapViewModel @Inject constructor(
                     }
                 }
 
-
                 else -> {
                     Log.d("MapViewModel", "No location")
                 }
             }
-
         }
-
     }
 }

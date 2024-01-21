@@ -1,6 +1,5 @@
 package com.example.greenscene.model
 
-import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
 
 
@@ -15,6 +14,7 @@ data class Restaurant(
     val priceLevel: Int = 0,
     val openingHours: String = "",
     val category: String = "",
+    val type: String = "",
 )
 
 data class RestaurantDetails(
@@ -31,6 +31,7 @@ data class RestaurantDetails(
     val phoneNumber: String = "",
     val website: String = "",
     val category: String = "",
+    val type: String = "",
 )
 
 

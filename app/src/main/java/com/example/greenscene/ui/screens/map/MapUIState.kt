@@ -19,5 +19,5 @@ data class MapUIState(
     val currentLocation: CurrentLocationState = CurrentLocationState.Loading,
     val mapProperties: MapProperties = MapProperties(isMyLocationEnabled = true),
     val mapUiSettings: MapUiSettings = MapUiSettings(myLocationButtonEnabled = true),
-    val restaurants: List<Restaurant?> = emptyList(),
+    val restaurants: List<Restaurant> = emptyList(),
 )

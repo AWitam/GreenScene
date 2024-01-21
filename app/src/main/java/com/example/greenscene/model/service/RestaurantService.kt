@@ -10,7 +10,7 @@ interface RestaurantService {
     suspend fun getNearbyRestaurants(
         currentLocation: LatLng,
         radius: Double,
-        onSuccess: (List<Restaurant?>) -> Unit,
+        onSuccess: (List<Restaurant>) -> Unit,
         onError: (Throwable) -> Unit
     )
 

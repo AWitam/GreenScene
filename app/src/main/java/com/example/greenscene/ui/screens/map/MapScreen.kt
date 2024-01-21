@@ -2,9 +2,7 @@ package com.example.greenscene.ui.screens.map
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -43,7 +41,7 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
                 usePreciseLocation = usePreciseLocation,
                 uiState = uiState,
                 onCurrentLocationChanged = viewModel::onCurrentLocationChanged,
-                onFetchRestaurants = viewModel::getNearbyRestaurants,
+                getNearbyRestaurants = viewModel::getNearbyRestaurants,
             )
         },
     )
@@ -55,7 +53,7 @@ fun Location(
     usePreciseLocation: Boolean,
     uiState: State<MapUIState>,
     onCurrentLocationChanged: (LatLng) -> Unit,
-    onFetchRestaurants: () -> Unit,
+    getNearbyRestaurants: () -> Unit,
 ) {
     val (currentLocationState, mapProperties, mapUISettings) = uiState.value
 
@@ -87,6 +85,8 @@ fun Location(
         }
     }
 
+
+
     when (currentLocationState) {
         is CurrentLocationState.Loading -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -101,6 +101,13 @@ fun Location(
         }
 
         is CurrentLocationState.DataLoaded -> {
+
+            LaunchedEffect(key1 = uiState.value.restaurants) {
+                scope.launch {
+                    getNearbyRestaurants()
+                }
+            }
+
             currentLocationState.let {
                 val cameraPositionState = rememberCameraPositionState {
                     position = CameraPosition.fromLatLngZoom(it.data.location, 17f)
@@ -109,11 +116,19 @@ fun Location(
                     cameraPositionState = cameraPositionState,
                     uiSettings = mapUISettings,
                     properties = mapProperties,
-                )
+                ) {
+                    if (uiState.value.restaurants.isNotEmpty()) {
+                        uiState.value.restaurants.forEach { restaurant ->
+                            RestaurantMarker(
+                                restaurant = restaurant,
+                            )
+                        }
+                    }
+                }
             }
         }
-    }
 
+    }
 }
 
 
