@@ -142,8 +142,7 @@ fun NavGraphBuilder.greenSceneGraph(
                 run {
                     appState.navigate(route)
                 }
-            },
-            popUp = appState::popUp
+            }
         )
     }
 
