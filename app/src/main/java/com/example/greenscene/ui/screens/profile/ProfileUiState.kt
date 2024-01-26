@@ -11,6 +11,12 @@ sealed class ProfileOptionsItem(val id: String, @StringRes val textId:Int, val i
     object Logout : ProfileOptionsItem(id = "logout", textId = R.string.sign_out, iconId = R.drawable.logout)
 }
 
+
+sealed class AppearanceOptionsItem(val id: String, @StringRes val textId:Int) {
+    object SystemDefault : AppearanceOptionsItem(id = "system_default", textId = R.string.system_default)
+    object Light : AppearanceOptionsItem(id = "light", textId = R.string.light_mode)
+    object Dark : AppearanceOptionsItem(id = "dark", textId = R.string.dark_mode)
+}
 data class ProfileUiState(
     val profileOptions: List<ProfileOptionsItem> = listOf(
         ProfileOptionsItem.EditProfile,
@@ -18,4 +24,10 @@ data class ProfileUiState(
         ProfileOptionsItem.Logout
     ),
     val selectedOption: ProfileOptionsItem? = null,
+    val appearanceOptions: List<AppearanceOptionsItem> = listOf(
+        AppearanceOptionsItem.SystemDefault,
+        AppearanceOptionsItem.Light,
+        AppearanceOptionsItem.Dark
+    ),
+    val selectedAppearanceOption: AppearanceOptionsItem? = AppearanceOptionsItem.SystemDefault
 )

@@ -67,7 +67,7 @@ fun InlineCard(
 @Preview
 @Composable
 fun CardEditorPreview() {
-    GreenSceneTheme {
+    GreenSceneTheme(useDarkTheme = false) {
         InlineCard(
             title = R.string.profile,
             icon = R.drawable.profile,

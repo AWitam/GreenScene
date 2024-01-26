@@ -1,10 +1,10 @@
 package com.example.greenscene.ui.screens.profile
 
-import android.util.Log
 import com.example.greenscene.LOG_IN_SCREEN
 import com.example.greenscene.SIGN_UP_SCREEN
+import com.example.greenscene.model.AppPreferences
 import com.example.greenscene.model.service.AccountService
-import com.example.greenscene.ui.screens.GreenSceneViewModel
+import com.example.greenscene.GreenSceneViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val accountService: AccountService
+    private val accountService: AccountService,
+    private val appPreference: AppPreferences,
 ) : GreenSceneViewModel() {
     val authState = accountService.currentUser.map {
         AuthUiState(
@@ -24,8 +25,15 @@ class ProfileViewModel @Inject constructor(
         )
     }
 
-
-    private var _uiState = MutableStateFlow(ProfileUiState())
+    private var _uiState = MutableStateFlow(
+        ProfileUiState(
+            selectedAppearanceOption = when (appPreference.theme) {
+                "light" -> AppearanceOptionsItem.Light
+                "dark" -> AppearanceOptionsItem.Dark
+                else -> AppearanceOptionsItem.SystemDefault
+            }
+        )
+    )
     val uiState get() = _uiState.asStateFlow()
 
 
@@ -51,20 +59,21 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onProfileOptionsItemClicked(profileOptionsItem: ProfileOptionsItem) {
-        when (profileOptionsItem) {
-            is ProfileOptionsItem.Logout -> {
-                _uiState.value = uiState.value.copy(
-                    selectedOption = profileOptionsItem
-                )
-            }
+        _uiState.value = uiState.value.copy(
+            selectedOption = profileOptionsItem
+        )
+    }
 
-            is ProfileOptionsItem.EditProfile -> {
-                Log.d("ProfileViewModel", "EditProfile")
-            }
+    fun onSelectedAppearanceChanged(selectedAppearanceOptionsItem: AppearanceOptionsItem) {
 
-            is ProfileOptionsItem.Appearance -> {
-                Log.d("ProfileViewModel", "Appearance")
-            }
+        appPreference.theme = when (selectedAppearanceOptionsItem) {
+            AppearanceOptionsItem.Light -> "light"
+            AppearanceOptionsItem.Dark -> "dark"
+            AppearanceOptionsItem.SystemDefault -> "system_default"
         }
+
+        _uiState.value = uiState.value.copy(
+            selectedAppearanceOption = selectedAppearanceOptionsItem
+        )
     }
 }

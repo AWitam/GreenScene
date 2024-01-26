@@ -76,7 +76,7 @@ val NavigationBarHeight = 60.0.dp
 
 @Composable
 fun GreenSceneTheme(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
+    useDarkTheme: Boolean,
     content: @Composable() () -> Unit
 ) {
     val colors = if (!useDarkTheme) {

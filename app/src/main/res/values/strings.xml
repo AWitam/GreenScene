@@ -39,6 +39,7 @@
     <string name="edit_profile">Edit profile</string>
     <string name="delete_my_account">Delete my account</string>
     <string name="appearance">Appearance</string>
+    <string name="appearance_description">Customize how GreenScreen looks on your device.</string>
     <string name="dark_mode">Dark mode</string>
     <string name="light_mode">Light mode</string>
     <string name="system_default">System default</string>
@@ -59,7 +60,6 @@
     <string name="location_rationale_dismiss">Dismiss</string>
     <string name="location_got_to_settings_button">Go to settings</string>
     <string name="location_request_denied_error">You denied location access. Please enable location again by going to your settings.</string>
-
 
 
     <!-- Dialogs -->

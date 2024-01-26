@@ -21,13 +21,18 @@ fun ProfileOptionsList(
     Column(
         modifier = modifier
             .fillMaxWidth()
-//            .wrapContentHeight()
+            .wrapContentHeight()
     ) {
         items.forEach { item ->
+            val color = when (item) {
+                ProfileOptionsItem.Logout -> MaterialTheme.colorScheme.error
+                else -> MaterialTheme.colorScheme.onPrimaryContainer
+            }
+            
             InlineCard(
                 title = item.textId,
                 icon = item.iconId,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = color,
                 onClick = {
                     onItemClick(item)
                 }
@@ -40,7 +45,7 @@ fun ProfileOptionsList(
 @Preview(showBackground = true)
 @Composable
 fun ProfileOptionsListPreview() {
-    GreenSceneTheme {
+    GreenSceneTheme(useDarkTheme = false) {
         ProfileOptionsList(
             items = listOf(
                 ProfileOptionsItem.EditProfile,

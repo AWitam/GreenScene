@@ -13,8 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.greenscene.PROFILE_SCREEN
 import com.example.greenscene.ui.components.BasicToolbar
 import com.example.greenscene.ui.components.Divider
+import com.example.greenscene.ui.screens.profile.components.AppearanceSheet
 import com.example.greenscene.ui.screens.profile.components.LogoutSheetContent
 import com.example.greenscene.ui.screens.profile.components.ProfileInfo
 import com.example.greenscene.ui.screens.profile.components.WelcomeCard
@@ -26,10 +28,12 @@ import com.example.greenscene.R.string as AppText
 @ExperimentalMaterialApi
 @Composable
 fun ProfileScreen(
+    onThemeChanged: (String) -> Unit,
     restartApp: (String) -> Unit,
     openScreen: (String) -> Unit,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
+
     val authState by viewModel.authState.collectAsState(initial = AuthUiState())
     val uiState by viewModel.uiState.collectAsState()
 
@@ -46,6 +50,10 @@ fun ProfileScreen(
             onLogoutClick = { viewModel.onLogOutClick() },
             onDismissBottomSheet = { viewModel.onDismissBottomSheet() },
             onProfileOptionClick = { option -> viewModel.onProfileOptionsItemClicked(option) },
+            onSelectedAppearanceChanged = { appearance ->
+                onThemeChanged(appearance.id)
+                viewModel.onSelectedAppearanceChanged(appearance)
+            },
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -61,6 +69,7 @@ fun ProfileViewContent(
     onSignUpClick: () -> Unit,
     onLogoutClick: () -> Unit,
     onDismissBottomSheet: () -> Unit = {},
+    onSelectedAppearanceChanged: (AppearanceOptionsItem) -> Unit,
     onProfileOptionClick: (ProfileOptionsItem) -> Unit
 ) {
     Column(
@@ -81,8 +90,7 @@ fun ProfileViewContent(
             ProfileInfo(authState)
             Divider()
             ProfileOptionsList(
-                items = uiState.profileOptions,
-                onItemClick = onProfileOptionClick
+                items = uiState.profileOptions, onItemClick = onProfileOptionClick
             )
 
             if (uiState.selectedOption != null) {
@@ -90,13 +98,16 @@ fun ProfileViewContent(
                     when (uiState.selectedOption) {
                         ProfileOptionsItem.Logout -> {
                             LogoutSheetContent(
-                                onLogOut = onLogoutClick,
-                                onDismissClick = onDismissBottomSheet
+                                onLogOut = onLogoutClick, onDismissClick = onDismissBottomSheet
                             )
                         }
 
                         ProfileOptionsItem.Appearance -> {
-                            // TODO
+                            AppearanceSheet(
+                                onSelectAppearance = onSelectedAppearanceChanged,
+                                appearanceOptions = uiState.appearanceOptions,
+                                selectedOption = uiState.selectedAppearanceOption,
+                            )
                         }
 
                         ProfileOptionsItem.EditProfile -> {

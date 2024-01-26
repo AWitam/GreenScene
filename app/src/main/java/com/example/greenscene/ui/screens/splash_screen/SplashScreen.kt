@@ -70,7 +70,7 @@ fun SplashScreenContent(
 @Preview(showBackground = true)
 @Composable
 fun SplashScreenPreview() {
-    GreenSceneTheme {
+    GreenSceneTheme(useDarkTheme = false) {
         SplashScreenContent(
             onAppStart = { },
             shouldShowError = false

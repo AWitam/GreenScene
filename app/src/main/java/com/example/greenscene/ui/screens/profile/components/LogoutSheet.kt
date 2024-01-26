@@ -68,7 +68,7 @@ fun LogoutSheetContent(
 @Preview(showBackground = true)
 @Composable
 fun BottomSheetPreview() {
-    GreenSceneTheme {
+    GreenSceneTheme(useDarkTheme = false) {
         LogoutSheetContent(onDismissClick = { }, onLogOut = {})
     }
 }
