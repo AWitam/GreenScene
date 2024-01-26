@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -11,12 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.greenscene.PROFILE_SCREEN
 import com.example.greenscene.ui.components.BasicToolbar
 import com.example.greenscene.ui.components.Divider
+import com.example.greenscene.ui.screens.profile.components.AppearanceSheet
+import com.example.greenscene.ui.screens.profile.components.LogoutSheetContent
 import com.example.greenscene.ui.screens.profile.components.ProfileInfo
 import com.example.greenscene.ui.screens.profile.components.WelcomeCard
-import com.example.greenscene.ui.screens.profile.components.options_list.LogoutLink
-import com.example.greenscene.ui.screens.profile.components.options_list.ProfileOptionsList
+import com.example.greenscene.ui.screens.profile.components.ProfileOptionsList
 import com.example.greenscene.ui.theme.GreenSceneTheme
 import com.example.greenscene.R.string as AppText
 
@@ -24,12 +28,14 @@ import com.example.greenscene.R.string as AppText
 @ExperimentalMaterialApi
 @Composable
 fun ProfileScreen(
+    onThemeChanged: (String) -> Unit,
     restartApp: (String) -> Unit,
     openScreen: (String) -> Unit,
-    popUp: () -> Unit,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState(initial = ProfileUiState())
+
+    val authState by viewModel.authState.collectAsState(initial = AuthUiState())
+    val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(topBar = {
         BasicToolbar(
@@ -37,22 +43,34 @@ fun ProfileScreen(
         )
     }) { innerPadding ->
         ProfileViewContent(
-            uiState = uiState,
             onLoginClick = { viewModel.onLoginClick(openScreen) },
+            authState = authState,
+            uiState = uiState,
             onSignUpClick = { viewModel.onSignUpClick(openScreen) },
-            onLogoOutClick = { viewModel.onLogOutClick(restartApp) },
+            onLogoutClick = { viewModel.onLogOutClick() },
+            onDismissBottomSheet = { viewModel.onDismissBottomSheet() },
+            onProfileOptionClick = { option -> viewModel.onProfileOptionsItemClicked(option) },
+            onSelectedAppearanceChanged = { appearance ->
+                onThemeChanged(appearance.id)
+                viewModel.onSelectedAppearanceChanged(appearance)
+            },
             modifier = Modifier.padding(innerPadding)
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileViewContent(
     modifier: Modifier = Modifier,
+    authState: AuthUiState,
     uiState: ProfileUiState,
     onLoginClick: () -> Unit,
     onSignUpClick: () -> Unit,
-    onLogoOutClick: () -> Unit,
+    onLogoutClick: () -> Unit,
+    onDismissBottomSheet: () -> Unit = {},
+    onSelectedAppearanceChanged: (AppearanceOptionsItem) -> Unit,
+    onProfileOptionClick: (ProfileOptionsItem) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -62,44 +80,43 @@ fun ProfileViewContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        if (uiState.isAnonymousAccount) {
+        if (authState.isAnonymousAccount) {
             WelcomeCard(
-                onLoginClick = onLoginClick,
-                onSignUpClick = onSignUpClick
+                onLoginClick = onLoginClick, onSignUpClick = onSignUpClick
             )
-        } else {
-            ProfileInfo(uiState)
+        }
+
+        if (!authState.isAnonymousAccount) {
+            ProfileInfo(authState)
             Divider()
-            ProfileOptionsList(onLogOutClick = onLogoOutClick)
-        }
-    }
-}
-
-
-@Preview(showBackground = true)
-@ExperimentalMaterialApi
-@Composable
-fun ProfileScreenPreview() {
-    val uiState = ProfileUiState(
-        isAnonymousAccount = false,
-        name = "John Doe",
-        email = "xyz@gmail.com",
-        photoUrl = "https://placehold.co/60x60"
-    )
-
-    GreenSceneTheme {
-        Scaffold(topBar = {
-            BasicToolbar(title = AppText.profile)
-        }) { innerPadding ->
-            ProfileViewContent(
-                uiState = uiState,
-                onLoginClick = { },
-                onSignUpClick = { },
-                onLogoOutClick = { },
-                modifier = Modifier.padding(innerPadding)
+            ProfileOptionsList(
+                items = uiState.profileOptions, onItemClick = onProfileOptionClick
             )
+
+            if (uiState.selectedOption != null) {
+                ModalBottomSheet(onDismissRequest = onDismissBottomSheet) {
+                    when (uiState.selectedOption) {
+                        ProfileOptionsItem.Logout -> {
+                            LogoutSheetContent(
+                                onLogOut = onLogoutClick, onDismissClick = onDismissBottomSheet
+                            )
+                        }
+
+                        ProfileOptionsItem.Appearance -> {
+                            AppearanceSheet(
+                                onSelectAppearance = onSelectedAppearanceChanged,
+                                appearanceOptions = uiState.appearanceOptions,
+                                selectedOption = uiState.selectedAppearanceOption,
+                            )
+                        }
+
+                        ProfileOptionsItem.EditProfile -> {
+                            // TODO
+                        }
+                    }
+                }
+
+            }
         }
     }
 }
-
-

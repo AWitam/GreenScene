@@ -1,4 +1,4 @@
-package com.example.greenscene.ui.screens
+package com.example.greenscene
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

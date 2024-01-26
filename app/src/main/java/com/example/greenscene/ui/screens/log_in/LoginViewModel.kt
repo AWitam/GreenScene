@@ -6,7 +6,7 @@ import com.example.greenscene.PROFILE_SCREEN
 import com.example.greenscene.common.extensions.isValidEmail
 import com.example.greenscene.common.snackbar.SnackbarManager
 import com.example.greenscene.model.service.AccountService
-import com.example.greenscene.ui.screens.GreenSceneViewModel
+import com.example.greenscene.GreenSceneViewModel
 import com.example.greenscene.R.string as AppText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

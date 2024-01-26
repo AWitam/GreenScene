@@ -29,7 +29,6 @@ class GreenSceneAppState(
         }
     }
 
-
     fun popUp() {
         navController.popBackStack()
     }

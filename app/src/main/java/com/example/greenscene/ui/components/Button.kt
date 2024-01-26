@@ -287,7 +287,7 @@ fun TonalButton(
 @Preview(showBackground = true)
 @Composable
 fun ButtonsPreview() {
-    GreenSceneTheme {
+    GreenSceneTheme(useDarkTheme = false) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

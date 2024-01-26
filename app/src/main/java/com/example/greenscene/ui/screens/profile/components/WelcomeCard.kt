@@ -103,7 +103,7 @@ fun WelcomeCard(
 @Preview(showBackground = true)
 @Composable
 fun WelcomeCardPreview() {
-    GreenSceneTheme {
+    GreenSceneTheme(useDarkTheme = false) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
