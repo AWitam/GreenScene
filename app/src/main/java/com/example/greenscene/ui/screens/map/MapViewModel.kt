@@ -2,6 +2,7 @@ package com.example.greenscene.ui.screens.map
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.example.greenscene.model.Restaurant
 import com.example.greenscene.model.service.RestaurantService
 import com.example.greenscene.GreenSceneViewModel
 import com.google.android.gms.maps.model.LatLng
@@ -57,5 +58,11 @@ class MapViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun onRestaurantSelected(restaurant: Restaurant) {
+        _uiState.value = _uiState.value.copy(
+            selectedRestaurant = restaurant
+        )
     }
 }

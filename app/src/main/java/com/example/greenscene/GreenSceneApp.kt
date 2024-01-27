@@ -35,6 +35,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.greenscene.common.snackbar.SnackbarManager
 import com.example.greenscene.ui.components.AlertBar
 import com.example.greenscene.ui.components.BottomBar
+import com.example.greenscene.ui.screens.favourites.FavouritesScreen
 import com.example.greenscene.ui.screens.map.MapScreen
 import com.example.greenscene.ui.screens.log_in.LogInScreen
 import com.example.greenscene.ui.screens.profile.ProfileScreen
@@ -136,6 +137,10 @@ fun NavGraphBuilder.greenSceneGraph(
 
     composable(SPLASH_SCREEN) {
         SplashScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
+    }
+
+    composable(FAVOURITES_SCREEN) {
+        FavouritesScreen()
     }
 
     composable(route = MAP_SCREEN) {

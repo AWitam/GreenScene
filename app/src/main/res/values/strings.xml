@@ -61,6 +61,8 @@
     <string name="location_got_to_settings_button">Go to settings</string>
     <string name="location_request_denied_error">You denied location access. Please enable location again by going to your settings.</string>
 
+    <!-- FavoritesScreen -->
+    <string name="favorites">Favorites</string>
 
     <!-- Dialogs -->
     <string name="log_out_title">Logout</string>

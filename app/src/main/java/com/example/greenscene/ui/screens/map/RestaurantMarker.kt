@@ -4,12 +4,13 @@ import androidx.compose.runtime.Composable
 import com.example.greenscene.model.Restaurant
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberMarkerState
 
 
 @Composable
-fun RestaurantMarker(restaurant: Restaurant) {
+fun RestaurantMarker(restaurant: Restaurant, onClick: (Marker) -> Unit ) {
     val veganPinHue = 149.0F
     val veganOptionsHue = 172.0F
     val vegetarianHue = 193.0F
@@ -30,6 +31,10 @@ fun RestaurantMarker(restaurant: Restaurant) {
         state = rememberMarkerState(
             position = LatLng(restaurant.geopoint.latitude, restaurant.geopoint.longitude),
         ),
-        icon = BitmapDescriptorFactory.defaultMarker(markerHue)
+        icon = BitmapDescriptorFactory.defaultMarker(markerHue),
+        onClick = {
+            onClick(it)
+            return@Marker true
+        }
     )
 }

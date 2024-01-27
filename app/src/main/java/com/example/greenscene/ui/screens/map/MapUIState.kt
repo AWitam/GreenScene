@@ -18,6 +18,11 @@ data class CurrentLocation(
 data class MapUIState(
     val currentLocation: CurrentLocationState = CurrentLocationState.Loading,
     val mapProperties: MapProperties = MapProperties(isMyLocationEnabled = true),
-    val mapUiSettings: MapUiSettings = MapUiSettings(myLocationButtonEnabled = true),
+    val mapUiSettings: MapUiSettings = MapUiSettings(
+        myLocationButtonEnabled = true,
+        zoomControlsEnabled = false,
+        zoomGesturesEnabled = true
+    ),
     val restaurants: List<Restaurant> = emptyList(),
+    val selectedRestaurant: Restaurant? = null,
 )
