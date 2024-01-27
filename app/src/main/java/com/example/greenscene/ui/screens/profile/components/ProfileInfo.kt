@@ -19,10 +19,10 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import com.example.greenscene.R
-import com.example.greenscene.ui.screens.profile.ProfileUiState
+import com.example.greenscene.ui.screens.profile.AuthUiState
 
 @Composable
-fun ProfileInfo(uiState: ProfileUiState, modifier: Modifier = Modifier) {
+fun ProfileInfo(uiState: AuthUiState, modifier: Modifier = Modifier) {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current).data(uiState.photoUrl)
             .size(Size.ORIGINAL) // Set the target size to load the image at.

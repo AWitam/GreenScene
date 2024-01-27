@@ -14,9 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            GreenSceneTheme {
-                GreenSceneApp()
-            }
+            GreenSceneApp()
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.greenscene
 
 import android.content.res.Resources
 import androidx.annotation.StringRes
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
@@ -14,6 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -38,36 +41,47 @@ import com.example.greenscene.ui.screens.log_in.LogInScreen
 import com.example.greenscene.ui.screens.profile.ProfileScreen
 import com.example.greenscene.ui.screens.sign_up.SignUpScreen
 import com.example.greenscene.ui.screens.splash_screen.SplashScreen
+import com.example.greenscene.ui.theme.GreenSceneTheme
 import kotlinx.coroutines.CoroutineScope
 
 
 @Composable
-fun GreenSceneApp() {
-
+fun GreenSceneApp(
+    viewModel: MainViewModel = hiltViewModel()
+) {
+    val themeState by viewModel.themeState.collectAsState()
     val context = LocalContext.current
     val appState = rememberAppState()
 
-    Scaffold(
-        topBar = {
-            AlertBar(context)
-        },
-        bottomBar = { if (appState.bottomBarState.value) BottomBar(appState.navController) },
-        modifier = Modifier.fillMaxSize(),
-        snackbarHost = {
-            SnackbarHost(hostState = appState.scaffoldState.snackbarHostState,
-                modifier = Modifier.padding(8.dp),
-                snackbar = { snackbarData ->
-                    Snackbar(snackbarData, contentColor = MaterialTheme.colors.onPrimary)
-                })
-        },
-    ) { innerPadding ->
-        NavHost(
-            navController = appState.navController,
-            startDestination = SPLASH_SCREEN,
-            modifier = Modifier.padding(innerPadding)
+    val isDarkTheme = when (themeState) {
+        "dark" -> true
+        "system_default" -> isSystemInDarkTheme()
+        else -> false
+    }
 
-        ) {
-            greenSceneGraph(appState)
+    GreenSceneTheme(useDarkTheme = isDarkTheme) {
+        Scaffold(
+            topBar = {
+                AlertBar(context)
+            },
+            bottomBar = { if (appState.bottomBarState.value) BottomBar(appState.navController) },
+            modifier = Modifier.fillMaxSize(),
+            snackbarHost = {
+                SnackbarHost(hostState = appState.scaffoldState.snackbarHostState,
+                    modifier = Modifier.padding(8.dp),
+                    snackbar = { snackbarData ->
+                        Snackbar(snackbarData, contentColor = MaterialTheme.colors.onPrimary)
+                    })
+            },
+        ) { innerPadding ->
+            NavHost(
+                navController = appState.navController,
+                startDestination = SPLASH_SCREEN,
+                modifier = Modifier.padding(innerPadding)
+
+            ) {
+                greenSceneGraph(appState, onThemeChanged = viewModel::onThemeChanged)
+            }
         }
     }
 }
@@ -78,14 +92,6 @@ fun resources(): Resources {
     LocalConfiguration.current
     return LocalContext.current.resources
 }
-
-@Immutable
-data class TopBarState(
-    val showTopBar: Boolean = false,
-    @StringRes val topAppBarTitle: Int? = null,
-    val onBackIconClicked: () -> Unit = {}
-)
-
 
 @Composable
 fun rememberAppState(
@@ -126,6 +132,7 @@ fun rememberAppState(
 @OptIn(ExperimentalMaterialApi::class)
 fun NavGraphBuilder.greenSceneGraph(
     appState: GreenSceneAppState,
+    onThemeChanged: (String) -> Unit = {}
 ) {
 
     composable(SPLASH_SCREEN) {
@@ -142,13 +149,13 @@ fun NavGraphBuilder.greenSceneGraph(
 
     composable(PROFILE_SCREEN) {
         ProfileScreen(
+            onThemeChanged = onThemeChanged,
             restartApp = { route -> appState.clearAndNavigate(route) },
             openScreen = { route ->
                 run {
                     appState.navigate(route)
                 }
-            },
-            popUp = appState::popUp
+            }
         )
     }
 

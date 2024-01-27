@@ -95,7 +95,7 @@ fun LoginScreenContent(
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    GreenSceneTheme {
+    GreenSceneTheme(useDarkTheme = true) {
         LoginScreenContent(uiState = LoginUiState(),
             onEmailChange = {},
             onPasswordChange = {},

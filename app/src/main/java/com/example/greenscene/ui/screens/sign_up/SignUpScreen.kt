@@ -100,7 +100,7 @@ fun SignUpScreenPreview() {
         email = "email@test.com"
     )
 
-    GreenSceneTheme {
+    GreenSceneTheme(useDarkTheme = false) {
         SignUpScreenContent(
             uiState = uiState,
             onBackIconClicked = { },

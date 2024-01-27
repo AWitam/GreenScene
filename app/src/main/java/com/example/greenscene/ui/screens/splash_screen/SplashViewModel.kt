@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import com.example.greenscene.MAP_SCREEN
 import com.example.greenscene.SPLASH_SCREEN
 import com.example.greenscene.model.service.AccountService
-import com.example.greenscene.ui.screens.GreenSceneViewModel
+import com.example.greenscene.GreenSceneViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

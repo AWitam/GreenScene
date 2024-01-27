@@ -9,7 +9,7 @@ import com.example.greenscene.common.extensions.isValidPassword
 import com.example.greenscene.common.extensions.passwordMatches
 import com.example.greenscene.common.snackbar.SnackbarManager
 import com.example.greenscene.model.service.AccountService
-import com.example.greenscene.ui.screens.GreenSceneViewModel
+import com.example.greenscene.GreenSceneViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.example.greenscene.R.string as AppText

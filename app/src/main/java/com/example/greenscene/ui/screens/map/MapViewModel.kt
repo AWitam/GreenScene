@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.greenscene.model.Restaurant
 import com.example.greenscene.model.service.RestaurantService
-import com.example.greenscene.ui.screens.GreenSceneViewModel
+import com.example.greenscene.GreenSceneViewModel
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
